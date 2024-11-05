@@ -2,9 +2,10 @@ package com.quiply.cordova.saveimage;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,6 +26,7 @@ import android.util.Log;
 import android.os.Build;
 import android.net.Uri;
 import android.os.Environment;
+
 
 
 /**
