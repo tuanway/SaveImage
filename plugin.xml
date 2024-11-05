@@ -1,15 +1,15 @@
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id="cordova-plugin-save-image"
-        version="0.3.0">
+        version="0.4.0">
 
     <name>SaveImage</name>
     <description>This plugin allows you to save an image to the iOS Camera roll / Photo Library or Android Gallery.</description>
     <license>MIT</license>
-    <author>Quiply Technologies GmbH - hello@quiply.com</author>
+    <author>deBrandSoftware</author>
     <keywords>image,photo library,camera roll,gallery,image gallery</keywords>
-    <repo>https://github.com/quiply/SaveImage.git</repo>
-    <issue>https://github.com/quiply/SaveImage/issues</issue>
+    <repo>https://github.com/deBrandSoftware/SaveImage.git</repo>
+    <issue>https://github.com/deBrandSoftware/SaveImage/issues</issue>
 
     <engines>
         <engine name="cordova-android" version=">=6.3.0"/>
