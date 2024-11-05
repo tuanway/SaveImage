@@ -1,6 +1,6 @@
 {
     "name": "cordova-plugin-save-image",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "cordova": {
         "id": "cordova-plugin-save-image",
         "platforms": [
@@ -11,9 +11,9 @@
     "description": "This plugin allows you to save an image file to the iOS Photo Library or Android Gallery.",
     "repository": {
         "type": "git",
-        "url": "https://github.com/quiply/SaveImage"
+        "url": "https://github.com/deBrandSoftware/SaveImage"
     },
-    "issue": "https://github.com/quiply/SaveImage/issues",
+    "issue": "https://github.com/deBrandSoftware/SaveImage/issues",
     "keywords": [
         "image",
         "photo library",
@@ -35,10 +35,10 @@
         }
     },
     "author": {
-        "name": "Quiply Technologies GmbH",
-        "email": "hello@quiply.com",
-        "url": "http://www.quiply.com"
+        "name": "deBrandSoftware",
+        "email": "milan@debrand.rocks",
+        "url": "http://debrand.rocks"
     },
     "license": "MIT",
-    "homepage": "https://github.com/quiply/SaveImage#readme"
+    "homepage": "https://github.com/deBrandSoftware/SaveImage#readme"
 }
