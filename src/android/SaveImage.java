@@ -137,7 +137,7 @@ public class SaveImage extends CordovaPlugin {
                     outStream.write(buffer, 0, bytesRead);
                 }
 
-                callbackContext.success("Image saved to gallery: " + uri.toString());
+                callbackContext.success(uri.toString());
             } catch (IOException e) {
                 callbackContext.error("IOException occurred: " + e.getMessage());
             }
