@@ -69,15 +69,12 @@ public class SaveImage extends CordovaPlugin {
         }
 
         // Request permissions based on Android version
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
             if (PermissionHelper.hasPermission(this, READ_MEDIA_IMAGES)) {
                 performImageSave();
             } else {
                 PermissionHelper.requestPermission(this, WRITE_PERM_REQUEST_CODE, READ_MEDIA_IMAGES);
             }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            // Android 10 and 11: No WRITE_EXTERNAL_STORAGE needed, can use MediaStore directly
-            performImageSave();
         } else {
             // Android 9 and below: request WRITE_EXTERNAL_STORAGE permission
             if (PermissionHelper.hasPermission(this, WRITE_EXTERNAL_STORAGE)) {
@@ -99,7 +96,7 @@ public class SaveImage extends CordovaPlugin {
             return;
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
             // Use MediaStore for Android 10 and above
             saveImageToMediaStore(srcFile);
         } else {
