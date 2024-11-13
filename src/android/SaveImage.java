@@ -69,14 +69,14 @@ public class SaveImage extends CordovaPlugin {
         }
 
         // Request permissions based on Android version
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (PermissionHelper.hasPermission(this, READ_MEDIA_IMAGES)) {
                 performImageSave();
             } else {
                 PermissionHelper.requestPermission(this, WRITE_PERM_REQUEST_CODE, READ_MEDIA_IMAGES);
             }
         } else {
-            // Android 13 and below: request WRITE_EXTERNAL_STORAGE permission
+            // Android 12 and below: request WRITE_EXTERNAL_STORAGE permission
             if (PermissionHelper.hasPermission(this, WRITE_EXTERNAL_STORAGE)) {
                 performImageSave();
             } else {
@@ -96,17 +96,17 @@ public class SaveImage extends CordovaPlugin {
             return;
         }
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
-            // Use MediaStore for Android 14 and above
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Use MediaStore for Android 13 and above
             saveImageToMediaStore(srcFile);
         } else {
-            // Use traditional file copying for Android 13 and below
+            // Use traditional file copying for Android 12 and below
             saveImageToLegacyGallery(srcFile);
         }
     }
 
     /**
-     * Save image to MediaStore (Android 14+)
+     * Save image to MediaStore (Android 13+)
      */
     private void saveImageToMediaStore(File srcFile) {
         ContentValues values = new ContentValues();
@@ -144,7 +144,7 @@ public class SaveImage extends CordovaPlugin {
     }
 
     /**
-     * Save image using traditional file system for Android 13 and below
+     * Save image using traditional file system for Android 12 and below
      */
     private void saveImageToLegacyGallery(File srcFile) {
         File dstFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
