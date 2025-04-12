@@ -39,6 +39,7 @@ public class SaveImage extends CordovaPlugin {
     private final String WRITE_EXTERNAL_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     private CallbackContext callbackContext;
     private String filePath;
+    private String saveFolder;
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -60,6 +61,7 @@ public class SaveImage extends CordovaPlugin {
      */  
     private void saveImageToGallery(JSONArray args, CallbackContext callback) throws JSONException {
         this.filePath = args.getString(0);
+        this.saveFolder = args.getString(1);
         this.callbackContext = callback;
         Log.d("SaveImage", "SaveImage in filePath: " + filePath);
 
@@ -71,14 +73,14 @@ public class SaveImage extends CordovaPlugin {
         // Request permissions based on Android version
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (PermissionHelper.hasPermission(this, READ_MEDIA_IMAGES)) {
-                performImageSave();
+                performImageSave(this.saveFolder);
             } else {
                 PermissionHelper.requestPermission(this, WRITE_PERM_REQUEST_CODE, READ_MEDIA_IMAGES);
             }
         } else {
             // Android 12 and below: request WRITE_EXTERNAL_STORAGE permission
             if (PermissionHelper.hasPermission(this, WRITE_EXTERNAL_STORAGE)) {
-                performImageSave();
+                performImageSave(this.saveFolder);
             } else {
                 PermissionHelper.requestPermission(this, WRITE_PERM_REQUEST_CODE, WRITE_EXTERNAL_STORAGE);
             }
@@ -88,7 +90,7 @@ public class SaveImage extends CordovaPlugin {
     /**
      * Save image to device gallery
      */
-    private void performImageSave() {
+    private void performImageSave(String saveFolder) {
         File srcFile = new File(filePath);
 
         if (!srcFile.exists()) {
@@ -98,7 +100,7 @@ public class SaveImage extends CordovaPlugin {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             // Use MediaStore for Android 13 and above
-            saveImageToMediaStore(srcFile);
+            saveImageToMediaStore(srcFile,saveFolder);
         } else {
             // Use traditional file copying for Android 12 and below
             saveImageToLegacyGallery(srcFile);
@@ -108,13 +110,13 @@ public class SaveImage extends CordovaPlugin {
     /**
      * Save image to MediaStore (Android 13+)
      */
-    private void saveImageToMediaStore(File srcFile) {
+    private void saveImageToMediaStore(File srcFile, String saveFolder) {
         ContentValues values = new ContentValues();
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(new Date());
         values.put(MediaStore.Images.Media.DISPLAY_NAME, "IMG_" + timeStamp + ".jpg");
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
         values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
-        values.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/YourAppFolder");
+        values.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/"+saveFolder);
 
         Context context = cordova.getActivity().getApplicationContext();
         Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
