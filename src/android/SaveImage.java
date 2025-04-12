@@ -195,7 +195,7 @@ public class SaveImage extends CordovaPlugin {
         }
 
         if (requestCode == WRITE_PERM_REQUEST_CODE) {
-            performImageSave();
+            performImageSave(this.saveFolder);
         }
     }
 }
