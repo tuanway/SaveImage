@@ -1,7 +1,7 @@
 var ImageSaver = function () {
 };
 
-ImageSaver.saveImageToGallery = function (localImagePath, successCallback, failureCallback) {
+ImageSaver.saveImageToGallery = function (localImagePath, SaveFolderName, successCallback, failureCallback) {
     if (typeof successCallback != 'function') {
         throw new Error('SaveImage Error: successCallback is not a function');
     }
@@ -11,7 +11,7 @@ ImageSaver.saveImageToGallery = function (localImagePath, successCallback, failu
     }
 
     return cordova.exec(
-        successCallback, failureCallback, 'SaveImage', 'saveImageToGallery', [_getLocalImagePathWithoutPrefix()]);
+        successCallback, failureCallback, 'SaveImage', 'saveImageToGallery', [_getLocalImagePathWithoutPrefix(), SaveFolderName]);
 
     function _getLocalImagePathWithoutPrefix() {
         if (localImagePath.indexOf('file:///') === 0) {
