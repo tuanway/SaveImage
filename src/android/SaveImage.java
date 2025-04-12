@@ -62,6 +62,7 @@ public class SaveImage extends CordovaPlugin {
     private void saveImageToGallery(JSONArray args, CallbackContext callback) throws JSONException {
         this.filePath = args.getString(0);
         this.saveFolder = args.getString(1);
+        if (this.saveFolder == null) this.saveFolder = "AppImage"
         this.callbackContext = callback;
         Log.d("SaveImage", "SaveImage in filePath: " + filePath);
 
